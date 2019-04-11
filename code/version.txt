@@ -1,0 +1,18 @@
+系统版本
+Ubuntu 16.04.6 LTS
+
+CUDA版本
+cuda 9.0.176
+cudnn 7.5.0
+
+python版本
+python 3.6.8
+
+python调用package及版本
+pandas 0.23.4
+tensorflow 1.10.0
+keras 2.1.6
+numpy 1.16.2
+matplotlib 3.0.3
+sklearn 0.20.3
+
