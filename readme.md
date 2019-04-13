@@ -4,11 +4,13 @@ bash train.sh B  # for test B, models will be saved in ../train/models/
 
 bash train.sh C  # for test C, but it is no need to train it again
 
+
 ## Predict
 
 bash test.sh B  # for test B
 
 bash test.sh C  # for test C
+
 
 ## References
 Lv, Y., Duan, Y., Kang, W., Li, Z., & Wang, F. Y. (2015). 
@@ -50,6 +52,44 @@ yesterdayNormal: in daily meanings
 Can see the rules of generating historical features in generateHistoricData
 
 
+## Feature Selection
+
+The way to do feature selection is directly eliminate a feature, 
+and then train a new model, to see if the result is getting better or worse. 
+
+1. pay_type: try to eliminate this feature, directly predicts the flow ignore
+   pay type, get a worse result.
+   
+2. averWeekOutIn: try to not use this feature, get a better result.
+
+3. lastWeek, averWeek: the results in training and validation set are very well,
+   but the result in test A will be over-fitting.
+   
+4. yesterdayNormal: because the flows between workday and weekend are very different,
+   so use the yesterday's data in daily meanings is not suitable.
+   
+5. holiday: only one day in the training data only is holiday, 
+   and it has obvious different pattern. 
+   So the holiday is eliminated finally.
+
+
+## Validation Set
+
+The course of change of the training set and the verification set is as follows: 
+
+Firstly, just selects the last two days as validation set by feeling.
+
+Secondly, the test set is to predict the flow of one day, 
+so selects the last day as validation set. 
+(it is no significant difference to select the validation set 
+that has the same day of the week with test set)
+
+Finally, to let the training set be balance, the number each day 
+of the week is set to three, and due to the significant difference of holiday,
+the first day is eliminated, and the second day do not have normal yesterday,
+is eliminated too. Then the validation set is also the last two days.
+
+
 ## Models
 
 In the first time, I try to use SAE showed in the References, but it is 
@@ -69,13 +109,16 @@ wrong features to train, and wrong validate set. But due to the need of
 recurring the result of test B, these wrong settings are being kept.
 
 All the models used in test B are base on the fully connected network 
-with different parameters. The differences of each model will be list 
-below:
+with different parameters. Five models is selected by the mae of test A, 
+the other five models should have the same parameters with the before 
+five models (they are not exactly the same because of my mistakes), 
+but they are trained by all training data (including validation data),
+The differences of each model will be list below:
 
 #### model_1228
-training data: 2019-01-03 -> 2019-10-23
+training data: 2019-01-03 -> 2019-01-23
 
-validate data: 2019-01-24 -> 2019-10-25
+validate data: 2019-01-24 -> 2019-01-25
 
 weights = [1, 0, 0]  # the weight of three different loss functions
 
@@ -94,7 +137,7 @@ n_outputs = 3  # the output of nn
 n_mlp = [400, 400, 400]  # the size of each hidden layer
 
 ##### model_1228_tol
-training data: 2019-01-03 -> 2019-10-25
+training data: 2019-01-03 -> 2019-01-25
 
 validate data: not important, training stopped according to the training epoch of model_1228
 
@@ -115,9 +158,9 @@ n_outputs = 4
 n_mlp = [400, 400, 400]
 
 ##### model_1250
-training data: 2019-01-03 -> 2019-10-23
+training data: 2019-01-03 -> 2019-01-23
 
-validate data: 2019-01-24 -> 2019-10-25
+validate data: 2019-01-24 -> 2019-01-25
 
 weights = [10000, 100, 1]
 
@@ -136,7 +179,7 @@ n_outputs = 3
 n_mlp = [400, 400, 400]
 
 ##### model_1250_tol
-training data: 2019-01-03 -> 2019-10-25
+training data: 2019-01-03 -> 2019-01-25
 
 validate data: not important, training stopped according to the training epoch of model_1250
 
@@ -158,9 +201,9 @@ n_mlp = [400, 400, 400]
 
 
 ##### model_1266
-training data: 2019-01-03 -> 2019-10-23
+training data: 2019-01-03 -> 2019-01-23
 
-validate data: 2019-01-24 -> 2019-10-25
+validate data: 2019-01-24 -> 2019-01-25
 
 weights = [1, 0, 0]
 
@@ -179,7 +222,7 @@ n_outputs = 4
 n_mlp = [500, 500]
 
 ##### model_1266_tol
-training data: 2019-01-03 -> 2019-10-25
+training data: 2019-01-03 -> 2019-01-25
 
 validate data: not important, training stopped according to the training epoch of model_1266
 
@@ -201,9 +244,9 @@ n_outputs = 4
 n_mlp = [500, 500]
 
 ##### model_1294
-training data: 2019-01-01 -> 2019-10-24
+training data: 2019-01-01 -> 2019-01-24
 
-validate data: 2019-10-25
+validate data: 2019-01-25
 
 weights = [1, 0, 0]
 
@@ -221,7 +264,7 @@ n_outputs = 4
 n_mlp = [400, 400, 400, 400, 400, 400]
 
 ##### model_1294_tol
-training data: 2019-01-03 -> 2019-10-25
+training data: 2019-01-03 -> 2019-01-25
 
 validate data: not important, training stopped according to the training epoch of model_1294
 
@@ -242,9 +285,9 @@ n_outputs = 4
 n_mlp = [400, 400, 400, 400, 400, 400]
 
 ##### model_1305
-training data: 2019-01-01 -> 2019-10-22
+training data: 2019-01-01 -> 2019-01-22
 
-validate data: 2019-01-23 -> 2019-10-25
+validate data: 2019-01-23 -> 2019-01-25
 
 weights = [1, 0, 0]
 
@@ -263,7 +306,7 @@ n_outputs = 4
 n_mlp = [400, 400, 400]
 
 ##### model_1305_tol
-training data: 2019-01-03 -> 2019-10-25
+training data: 2019-01-03 -> 2019-01-25
 
 validate data: not important, training stopped according to the training epoch of model_1305
 
@@ -283,10 +326,12 @@ n_outputs = 4
 
 n_mlp = [400, 400, 400]
 
-more detials: see the source code.
+more detials: look at the source code of one of the models, 
+              the other nine are redundant.
 
 ##### Blend
 get the mean of results predicted by above models
+
 
 ## 比赛存在的问题
 
@@ -308,5 +353,5 @@ get the mean of results predicted by above models
 给自己带来了很多的锻炼，也认识了些大佬，但也遇到了解到了些自己不希望会存在的事情：
 不按规则办事，结果不透明，工作人员基本不回答参赛人员关注的问题，最后只有下图一个结果
 （一些聊天截图在考虑放不放出来......）。此次参加比赛只能说体验很差，对天池也感到很失望。
-
+ 
 <img src="pictures/比赛结果.png" width = "800" height = "300" alt="比赛结果" align=center />
