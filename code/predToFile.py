@@ -26,6 +26,7 @@ def flowIgnoreType(dataFLow):
 
 def writeToSubmit(preds):
     preds = flowIgnoreType(preds)
+    preds = preds * DECAY
 
     submit = pd.read_csv(DATA_PATH_TEST + SUBMIT_FILE)
 

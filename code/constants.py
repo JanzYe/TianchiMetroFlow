@@ -23,6 +23,19 @@ DATE_START = '2019-01-01'
 # SUBMIT_FILE = 'testB_submit_2019-01-27.csv'
 # SUBMIT_RESULT = '3_Bresult.csv'
 
+
+# Test A online
+if state == 'A':
+    DATA_PATH_TEST = '../data/testA/'  # file name format: record_2019-01-02.csv
+    DATE_TEST = '2019-01-29'
+    YESTERDAY_TEST = 'testA_record_2019-01-28.csv'
+    SUBMIT_FILE = 'testA_submit_2019-01-29.csv'
+    SUBMIT_RESULT = '../submit/testA/3_testA_results.csv'
+    DECAY = 1
+    if not os.path.exists('../submit/testA/'):
+        os.mkdir('../submit/testA/')
+
+
 # Test B online
 if state == 'B':
     DATA_PATH_TEST = '../data/testB/'  # file name format: record_2019-01-02.csv
@@ -30,6 +43,7 @@ if state == 'B':
     YESTERDAY_TEST = 'testB_record_2019-01-26.csv'
     SUBMIT_FILE = 'testB_submit_2019-01-27.csv'
     SUBMIT_RESULT = '../submit/testB/3_testB_results.csv'
+    DECAY = 1
     if not os.path.exists('../submit/testB/'):
         os.mkdir('../submit/testB/')
 
@@ -41,6 +55,7 @@ if state == 'C':
     YESTERDAY_TEST = 'testC_record_2019-01-30.csv'
     SUBMIT_FILE = 'testC_submit_2019-01-31.csv'
     SUBMIT_RESULT = '../submit/testC/3_testC_results.csv'
+    DECAY = 0.95
     if not os.path.exists('../submit/testC/'):
         os.mkdir('../submit/testC/')
 

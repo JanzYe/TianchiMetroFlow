@@ -1,10 +1,8 @@
 ## Steps recommended
 
-bash train.sh B
+bash train.sh A/B/C  # train only once, ABC are the same
 
-bash test.sh B
-
-bash test.sh C
+bash test_no_tol.sh A/B/C
 
 ## Train
 
@@ -14,9 +12,9 @@ bash train.sh C  # for test C, but it is no need to train it again
 
 ## Predict
 
-bash test.sh B  # for test B
+bash test.sh A/B/C  
 
-bash test.sh C  # for test C
+bash test_no_tol.sh A/B/C  
 
 ## References
 Lv, Y., Duan, Y., Kang, W., Li, Z., & Wang, F. Y. (2015). 
