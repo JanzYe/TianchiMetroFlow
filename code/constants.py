@@ -31,7 +31,7 @@ if state == 'A':
     YESTERDAY_TEST = 'testA_record_2019-01-28.csv'
     SUBMIT_FILE = 'testA_submit_2019-01-29.csv'
     SUBMIT_RESULT = '../submit/testA/3_testA_results.csv'
-    DECAY = 1
+    DECAY = 0.98  # with_tol: 1->12.28 no_tol: 1->12.05 0.98->11.88 0.95->12.12
     if not os.path.exists('../submit/testA/'):
         os.mkdir('../submit/testA/')
 
@@ -43,7 +43,7 @@ if state == 'B':
     YESTERDAY_TEST = 'testB_record_2019-01-26.csv'
     SUBMIT_FILE = 'testB_submit_2019-01-27.csv'
     SUBMIT_RESULT = '../submit/testB/3_testB_results.csv'
-    DECAY = 1
+    DECAY = 1  # with_tol: 1->11.80 no_tol: 1->11.89 
     if not os.path.exists('../submit/testB/'):
         os.mkdir('../submit/testB/')
 
@@ -55,7 +55,7 @@ if state == 'C':
     YESTERDAY_TEST = 'testC_record_2019-01-30.csv'
     SUBMIT_FILE = 'testC_submit_2019-01-31.csv'
     SUBMIT_RESULT = '../submit/testC/3_testC_results.csv'
-    DECAY = 0.95
+    DECAY = 0.80  # with_tol: 1->17.13  no_tol: 1->16.51 0.95->13.85 0.90->12.26 0.85->12.00 0.80->13.14
     if not os.path.exists('../submit/testC/'):
         os.mkdir('../submit/testC/')
 
